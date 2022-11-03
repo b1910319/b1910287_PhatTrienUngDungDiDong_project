@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'ui/posts/post_manager.dart';
 import 'ui/posts/post_detail_screen.dart';
 import 'ui/posts/post_overview_screen.dart';
+import 'ui/posts/user_posts_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: const SafeArea(
-        child: PostsOverviewScreen(),
+        child: UserPostsScreen(),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'post_grid.dart';
-
+import '../shared/app_drawer.dart';
 enum FilterOptions { favorites, all }
 
 class PostsOverviewScreen extends StatefulWidget {
@@ -23,6 +23,7 @@ class _PostsOverviewScreenState extends State<PostsOverviewScreen> {
           buildPostFilterMenu(),
         ],
       ),
+      drawer: const AppDrawer(),
       body: PostsGrid(_showOnlyFavorites),
     );
   }

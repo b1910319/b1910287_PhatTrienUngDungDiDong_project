@@ -5,6 +5,7 @@ import '../../models/post.dart';
 import 'post_detail_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'post_detail_screen.dart';
+
 class PostGridTile extends StatelessWidget {
   final Post post;
   const PostGridTile(this.post, {super.key});
@@ -18,10 +19,9 @@ class PostGridTile extends StatelessWidget {
         footer: buildGridFooterBar(context),
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (ctx) => PostDatailScreen(post),
-              ),
+            Navigator.of(context).pushNamed(
+              PostDatailScreen.routeName,
+              arguments: post.id,
             );
           },
           child: Image.network(

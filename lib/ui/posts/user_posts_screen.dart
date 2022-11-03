@@ -3,8 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'user_post_list_tile.dart';
 import 'post_manager.dart';
-
+import '../shared/app_drawer.dart';
 class UserPostsScreen extends StatelessWidget {
+  static const routeName = '/user-post';
   const UserPostsScreen({super.key});
 
   @override
@@ -14,6 +15,7 @@ class UserPostsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Bài viết'),
       ),
+      drawer: const AppDrawer(),
       body: RefreshIndicator(
         onRefresh: () async => print('refresh post'),
         child: buildUserPostListView(postManager),

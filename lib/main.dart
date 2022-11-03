@@ -18,9 +18,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const SafeArea(
-        child: UserPostsScreen(),
-      ),
+      home: const PostsOverviewScreen(),
+      routes: {
+        UserPostsScreen.routeName: (ctx) => const UserPostsScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == PostDatailScreen.routeName) {
+          final postId = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (ctx) {
+              return PostDatailScreen(
+                PostManager().findById(postId),
+              );
+            },
+          );
+        }
+        return null;
+      },
     );
   }
 }

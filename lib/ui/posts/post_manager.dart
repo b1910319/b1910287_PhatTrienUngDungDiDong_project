@@ -45,4 +45,8 @@ class PostManager {
   List<Post> get favoriteItems {
     return _items.where((postItem) => postItem.isFavorite).toList();
   }
+
+  Post findById(String id) {
+    return _items.firstWhere((prod) => prod.id == id);
+  }
 }

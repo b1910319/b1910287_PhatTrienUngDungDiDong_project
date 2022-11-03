@@ -5,6 +5,7 @@ import '../../models/post.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PostDatailScreen extends StatelessWidget {
+  static const routeName = '/post-detail';
   const PostDatailScreen(this.post, {super.key});
   final Post post;
 

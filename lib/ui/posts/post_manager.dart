@@ -59,11 +59,11 @@ class PostManager with ChangeNotifier {
     }
   }
 
-  // Future<void> tonggleFavoriteStatus(Post post) async {
-  //   final savedStatus = post.isFavorite;
-  //   post.isFavorite = !savedStatus;
-  //   if (!await _postsService.saveFavoriteStatus(product)) {
-  //     product.isFavorite = savedStatus;
-  //   }
-  // }
+  Future<void> tonggleFavoriteStatus(Post post) async {
+    final savedStatus = post.isFavorite;
+    post.isFavorite = !savedStatus;
+    if (!await _postsService.saveFavoriteStatus(post)) {
+      post.isFavorite = savedStatus;
+    }
+  }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:review/ui/posts/post_manager.dart';
 import '../../models/post.dart';
 import 'post_detail_screen.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'post_detail_screen.dart';
+import 'package:provider/provider.dart';
+import 'post_manager.dart';
 
 class PostGridTile extends StatelessWidget {
   final Post post;
@@ -79,18 +82,17 @@ class PostGridTile extends StatelessWidget {
           ),
           Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
           ValueListenableBuilder<bool>(
-            valueListenable: post.isFavoriteListenable,
-            builder: (ctx, isFavorite, child) {
-              return IconButton(
-                icon:
-                    Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-                onPressed: () {
-                  post.isFavorite = !isFavorite;
-                },
-                color: Color(0xFFCF0A0A),
-              );
-            }
-          ),
+              valueListenable: post.isFavoriteListenable,
+              builder: (ctx, isFavorite, child) {
+                return IconButton(
+                  icon:
+                      Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+                  onPressed: () {
+                    ctx.read<PostManager>().tonggleFavoriteStatus(post);
+                  },
+                  color: Color(0xFFCF0A0A),
+                );
+              }),
           Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
           Icon(Icons.share),
         ],

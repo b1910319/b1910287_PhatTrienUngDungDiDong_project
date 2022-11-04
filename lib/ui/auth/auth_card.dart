@@ -85,7 +85,9 @@ class _AuthCardState extends State<AuthCard> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Text('Hello!! \nWelcome Back', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Color(0xFF30AADD)),),
+              Image.network('https://dulichchat.com/wp-content/uploads/2019/02/logo-3-cho-web.png'),
+              Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
+              Text('Hello!! \nWelcome Back', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Color(0xFF82CD47)),),
               Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
               _buildEmailField(),
               Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10)),

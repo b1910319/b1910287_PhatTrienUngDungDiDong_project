@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'user_post_list_tile.dart';
 import 'post_manager.dart';
 import '../shared/app_drawer.dart';
+import 'package:provider/provider.dart';
 class UserPostsScreen extends StatelessWidget {
   static const routeName = '/user-post';
   const UserPostsScreen({super.key});
@@ -34,16 +35,22 @@ class UserPostsScreen extends StatelessWidget {
   }
 
   Widget buildUserPostListView(PostManager postManager) {
-    return ListView.builder(
-      itemCount: postManager.itemCount,
-      itemBuilder: (ctx, i) => Column(
-        children: [
-          UserPostListTile(postManager.items[i]),
-          const Divider(
-            color: Color(0xFFDC5F00),
+    return Consumer<PostManager>(
+      builder: (ctx, postManager, child) {
+        return ListView.builder(
+          itemCount: postManager.itemCount,
+          itemBuilder: (ctx, i) => Column(
+            children: [
+              UserPostListTile(
+                postManager.items[i],
+              ),
+              const Divider(
+                color: Color(0xFFDC5F00),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

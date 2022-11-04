@@ -3,7 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'post_grid_tile.dart';
 import 'post_manager.dart';
-
+import '../../models/post.dart';
+import 'package:provider/provider.dart';
 class PostsGrid extends StatelessWidget {
   final bool showFavorites;
   const PostsGrid(this.showFavorites, {super.key});
@@ -11,7 +12,9 @@ class PostsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final postManager = PostManager();
-    final posts = showFavorites ? postManager.favoriteItems : postManager.items;
+    final posts = context.select<PostManager, List<Post>>(
+      (postManager) => showFavorites ? postManager.favoriteItems : postManager.items,
+    );
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
       itemCount: posts.length,

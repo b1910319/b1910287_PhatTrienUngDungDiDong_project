@@ -1,6 +1,7 @@
 import '../../models/post.dart';
+import 'package:flutter/foundation.dart';
 
-class PostManager {
+class PostManager with ChangeNotifier {
   final List<Post> _items = [
     Post(
       id: 'p1',
@@ -48,5 +49,33 @@ class PostManager {
 
   Post findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
+  }
+
+  void addPost(Post post) {
+    _items.add(
+      post.copyWith(
+        id: 'p${DateTime.now().toIso8601String()}',
+      ),
+    );
+    notifyListeners();
+  }
+
+  void updatePost(Post post) {
+    final index = _items.indexWhere((item) => item.id == post.id);
+    if (index >= 0) {
+      _items[index] = post;
+      notifyListeners();
+    }
+  }
+
+  void tonggleFavoriteStatus(Post post) {
+    final saveStatus = post.isFavorite;
+    post.isFavorite = !saveStatus;
+  }
+
+  void deletePost(String id) {
+    final index = _items.indexWhere((item) => item.id == id);
+    _items.removeAt(index);
+    notifyListeners();
   }
 }

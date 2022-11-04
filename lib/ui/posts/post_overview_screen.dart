@@ -31,11 +31,13 @@ class _PostsOverviewScreenState extends State<PostsOverviewScreen> {
   Widget buildPostFilterMenu() {
     return PopupMenuButton(
       onSelected: (FilterOptions selectedValue) {
-        if (selectedValue == FilterOptions.favorites) {
+        setState(() {
+          if (selectedValue == FilterOptions.favorites) {
             _showOnlyFavorites = true;
           } else {
             _showOnlyFavorites = false;
           }
+        });
       },
       icon: const Icon(
         Icons.more_vert,

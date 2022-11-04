@@ -1,8 +1,9 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:review/ui/posts/post_manager.dart';
 import '../../models/post.dart';
-
+import 'package:provider/provider.dart';
 class UserPostListTile extends StatelessWidget {
   final Post post;
   const UserPostListTile(this.post, {super.key});
@@ -35,10 +36,21 @@ class UserPostListTile extends StatelessWidget {
       color: Theme.of(context).primaryColor,
     );
   }
+
   Widget buildDeleteButton(BuildContext context) {
     return IconButton(
       onPressed: () {
-        print('go to delete post screen');
+        context.read<PostManager>().deletePost(post.id!);
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Post deleted',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
       },
       icon: const Icon(Icons.delete_sweep),
       color: Color(0xFFE0144C),

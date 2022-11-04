@@ -2,7 +2,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import '../posts/user_posts_screen.dart';
-
+import '../auth/auth_manager.dart';
+import 'package:provider/provider.dart';
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
@@ -37,7 +38,10 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Đăng xuất'),
             onTap: () {
-              print('dang xuat');
+              Navigator.of(context)
+                ..pop()
+                ..pushReplacementNamed('/');
+              context.read<AuthManager>().logout();
             },
           )
         ],

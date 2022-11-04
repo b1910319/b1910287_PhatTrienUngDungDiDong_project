@@ -24,9 +24,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => AuthManager(),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProxyProvider<AuthManager, PostManager>(
           create: (ctx) => PostManager(),
-        ),
+          update: (ctx, authManager, productsManager) {
+            productsManager!.authToken = authManager.authToken;
+            return productsManager;
+          },
+        )
       ],
       child: Consumer<AuthManager>(builder: (context, authManager, child) {
         return MaterialApp(

@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 class UserPostsScreen extends StatelessWidget {
   static const routeName = '/user-post';
   const UserPostsScreen({super.key});
-
+  Future<void> _refreshPosts(BuildContext context) async {
+    await context.read<PostManager>().fetchPosts(true);
+  }
   @override
   Widget build(BuildContext context) {
     final postManager = PostManager();
@@ -18,10 +20,20 @@ class UserPostsScreen extends StatelessWidget {
         title: Text('Bài viết'),
       ),
       drawer: const AppDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () async => print('refresh post'),
-        child: buildUserPostListView(postManager),
-      ),
+      body: FutureBuilder(
+          future: _refreshPosts(context),
+          builder: (ctx, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return RefreshIndicator(
+              onRefresh: () => _refreshPosts(context),
+              child: buildUserPostListView(),
+            );
+          },
+        ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed(
@@ -35,7 +47,7 @@ class UserPostsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildUserPostListView(PostManager postManager) {
+  Widget buildUserPostListView() {
     return Consumer<PostManager>(
       builder: (ctx, postManager, child) {
         return ListView.builder(

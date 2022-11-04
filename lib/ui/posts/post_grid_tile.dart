@@ -54,7 +54,7 @@ class PostGridTile extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(
-                'https://i.pinimg.com/736x/21/2d/12/212d12e421963f8a66f95aece1182069.jpg'),
+                'https://i.pinimg.com/736x/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'),
           ),
           Padding(padding: EdgeInsets.fromLTRB(20, 10, 0, 0)),
           Column(
@@ -78,13 +78,18 @@ class PostGridTile extends StatelessWidget {
             ],
           ),
           Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
-          IconButton(
-            icon:
-                Icon(post.isFavorite ? Icons.favorite : Icons.favorite_border),
-            onPressed: () {
-              print('trinh');
-            },
-            color: Color(0xFFCF0A0A),
+          ValueListenableBuilder<bool>(
+            valueListenable: post.isFavoriteListenable,
+            builder: (ctx, isFavorite, child) {
+              return IconButton(
+                icon:
+                    Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+                onPressed: () {
+                  post.isFavorite = !isFavorite;
+                },
+                color: Color(0xFFCF0A0A),
+              );
+            }
           ),
           Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
           Icon(Icons.share),

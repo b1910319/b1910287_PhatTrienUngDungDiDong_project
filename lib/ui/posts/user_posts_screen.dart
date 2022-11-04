@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'user_post_list_tile.dart';
 import 'post_manager.dart';
 import '../shared/app_drawer.dart';
+import 'edit_post_screen.dart';
 import 'package:provider/provider.dart';
 class UserPostsScreen extends StatelessWidget {
   static const routeName = '/user-post';
@@ -23,9 +24,9 @@ class UserPostsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.of(context).pushNamed(
-          //   EditPostScreen.routeName,
-          // );
+          Navigator.of(context).pushNamed(
+            EditPostScreen.routeName,
+          );
           print('go to add post screen');
         },
         backgroundColor: Color(0xFFFF6D28),

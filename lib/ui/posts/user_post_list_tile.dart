@@ -1,9 +1,11 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:review/ui/posts/edit_post_screen.dart';
 import 'package:review/ui/posts/post_manager.dart';
 import '../../models/post.dart';
 import 'package:provider/provider.dart';
+
 class UserPostListTile extends StatelessWidget {
   final Post post;
   const UserPostListTile(this.post, {super.key});
@@ -30,10 +32,13 @@ class UserPostListTile extends StatelessWidget {
   Widget buildEditButton(BuildContext context) {
     return IconButton(
       onPressed: () {
-        print('go to edit post screen');
+        Navigator.of(context).pushNamed(
+          EditPostScreen.routeName,
+          arguments: post.id,
+        );
       },
       icon: const Icon(Icons.edit_note),
-      color: Theme.of(context).primaryColor,
+      color: Color(0xFF367E18),
     );
   }
 

@@ -38,7 +38,7 @@ class PostGridTile extends StatelessWidget {
 
   Widget buildGridFooterBar(BuildContext context) {
     return GridTileBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFFE7FBBE),
       title: Text(
         post.title,
         style: TextStyle(
@@ -76,7 +76,6 @@ class PostGridTile extends StatelessWidget {
                 ),
                 itemCount: 5,
                 itemSize: 17.0,
-                // direction: Axis.vertical,
               ),
             ],
           ),

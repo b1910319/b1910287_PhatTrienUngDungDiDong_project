@@ -1,21 +1,17 @@
 import 'dart:convert';
 import 'dart:async';
-
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import '../models/http_exception.dart';
 import '../models/auth_token.dart';
 
 class AuthService {
   static const _authTokenKey = 'authToken';
   late final String? _apiKey;
-
   AuthService() {
     _apiKey = dotenv.env['FIREBASE_API_KEY'];
   }
-
   String _buildAuthUrl(String method) {
     return 'https://identitytoolkit.googleapis.com/v1/accounts:$method?key=$_apiKey';
   }
@@ -38,10 +34,8 @@ class AuthService {
       if (responseJson['error'] != null) {
         throw HttpException.firebase(responseJson['error']['message']);
       }
-
       final authToken = _fromJson(responseJson);
       _saveAuthToken(authToken);
-
       return authToken;
     } catch (error) {
       print(error);
@@ -81,9 +75,7 @@ class AuthService {
     if (!prefs.containsKey(_authTokenKey)) {
       return null;
     }
-
     final savedToken = prefs.getString(_authTokenKey);
-
     final authToken = AuthToken.fromJson(json.decode(savedToken!));
     if (!authToken.isValid) {
       return null;

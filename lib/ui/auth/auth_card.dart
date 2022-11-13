@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/http_exception.dart';
 import '../shared/dialog_utils.dart';
-
 import 'auth_manager.dart';
-
 enum AuthMode { signup, login }
 
 class AuthCard extends StatefulWidget {
   const AuthCard({
     super.key,
   });
-
   @override
   State<AuthCard> createState() => _AuthCardState();
 }
@@ -32,12 +28,10 @@ class _AuthCardState extends State<AuthCard> {
       return;
     }
     _formKey.currentState!.save();
-
     _isSubmitting.value = true;
-
     try {
       if (_authMode == AuthMode.login) {
-        // Log user in
+        // đăng nhập
         await context.read<AuthManager>().login(
               _authData['email']!,
               _authData['password']!,
@@ -56,7 +50,6 @@ class _AuthCardState extends State<AuthCard> {
               ? error.toString()
               : 'Authentication failed');
     }
-
     _isSubmitting.value = false;
   }
 
@@ -73,20 +66,23 @@ class _AuthCardState extends State<AuthCard> {
   }
 
   @override
+  //giao diện đăng nhập, đăng ký
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Container(
       height: _authMode == AuthMode.signup ? 500 : 400,
-      constraints:
-          BoxConstraints(minHeight: _authMode == AuthMode.signup ?500 : 400),
+      constraints: BoxConstraints(minHeight: _authMode == AuthMode.signup ?500 : 400),
       width: deviceSize.width * 0.75,
+      //form
       child: Form(
         key: _formKey,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              //logo
               Image.network('https://dulichchat.com/wp-content/uploads/2019/02/logo-3-cho-web.png'),
               Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
+
               Text('Hello!! \nWelcome Back', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Color(0xFF82CD47)),),
               Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20)),
               _buildEmailField(),
@@ -101,6 +97,7 @@ class _AuthCardState extends State<AuthCard> {
                 valueListenable: _isSubmitting,
                 builder: (context, isSubmitting, child) {
                   if (isSubmitting) {
+                    //Một chỉ báo tiến trình vòng tròn Material Design, quay để cho biết rằng ứng dụng đang bận.
                     return const CircularProgressIndicator();
                   }
                   return _buildSubmitButton();
@@ -118,14 +115,13 @@ class _AuthCardState extends State<AuthCard> {
     return TextButton(
       onPressed: _switchAuthMode,
       style: TextButton.styleFrom(
-        // padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textStyle: TextStyle(
           color: Theme.of(context).primaryColor,
         ),
       ),
       child:
-          Text('${_authMode == AuthMode.login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+        Text('${_authMode == AuthMode.login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
     );
   }
 

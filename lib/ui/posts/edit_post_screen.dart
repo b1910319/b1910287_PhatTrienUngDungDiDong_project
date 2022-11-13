@@ -6,7 +6,6 @@ import 'post_manager.dart';
 
 class EditPostScreen extends StatefulWidget {
   static const routeName = '/edit-post';
-
   EditPostScreen(
     Post? post, {
     super.key,
@@ -23,9 +22,7 @@ class EditPostScreen extends StatefulWidget {
       this.post = post;
     }
   }
-
   late final Post post;
-
   @override
   State<EditPostScreen> createState() => _EditPostScreenState();
 }
@@ -36,7 +33,6 @@ class _EditPostScreenState extends State<EditPostScreen> {
   final _editForm = GlobalKey<FormState>();
   late Post _editedPost;
   var _isLoading = false;
-
   bool _isValidImageUrl(String value) {
     return (value.startsWith('http') ||
         value.startsWith('http') && (value.endsWith('.png')) ||
@@ -146,12 +142,12 @@ class _EditPostScreenState extends State<EditPostScreen> {
       },
     );
   }
+
   TextFormField buildAuthorField() {
     return TextFormField(
       initialValue: _editedPost.author,
       decoration: const InputDecoration(labelText: 'Author'),
       maxLines: 2,
-      // textInputAction: TextInputAction.next,
       validator: (value) {
         if (value!.isEmpty) {
           return 'Please provide a value!';

@@ -1,11 +1,8 @@
 class HttpException implements Exception {
   final String message;
-
   HttpException(this.message);
-
   HttpException.firebase(String code)
       : message = _translateFirebaseErrorCode(code);
-
   static String _translateFirebaseErrorCode(code) {
     switch (code) {
       case 'EMAIL_EXISTS':
@@ -22,7 +19,6 @@ class HttpException implements Exception {
         return code;
     }
   }
-
   @override
   String toString() {
     return message;

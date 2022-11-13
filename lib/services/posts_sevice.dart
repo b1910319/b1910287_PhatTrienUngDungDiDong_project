@@ -6,6 +6,7 @@ import 'firebase_service.dart';
 
 class PostsService extends FirebaseService {
   PostsService([AuthToken? authToken]) : super(authToken);
+  //hiển thị danh sách bài viết
   Future<List<Post>> fetchPosts([bool filterByUser = false]) async {
     final List<Post> posts = [];
     try {
@@ -40,7 +41,7 @@ class PostsService extends FirebaseService {
       return posts;
     }
   }
-
+  //thêm bài viết
   Future<Post?> addPost(Post post) async {
     try {
       final url = Uri.parse('$databaseUrl/posts.json?auth=$token');
@@ -64,7 +65,7 @@ class PostsService extends FirebaseService {
       return null;
     }
   }
-
+  //cập nhật bài viết
   Future<bool> updatePost(Post post) async {
     try {
       final url =
@@ -82,7 +83,7 @@ class PostsService extends FirebaseService {
       return false;
     }
   }
-
+  //xoá bài viết
   Future<bool> deletePost(String id) async {
     try {
       final url = Uri.parse('$databaseUrl/posts/$id.json?auth=$token');
@@ -96,7 +97,7 @@ class PostsService extends FirebaseService {
       return false;
     }
   }
-
+  //lưu bài viết yêu thích
   Future<bool> saveFavoriteStatus(Post post) async {
     try {
       final url = Uri.parse(

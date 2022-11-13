@@ -34,19 +34,19 @@ class UserPostsScreen extends StatelessWidget {
             );
           },
         ),
+      // button thêm bài viết
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed(
             EditPostScreen.routeName,
           );
-          print('go to add post screen');
         },
         backgroundColor: Color(0xFFFF6D28),
         child: const Icon(Icons.add),
       ),
     );
   }
-
+  //danh sách bài viết
   Widget buildUserPostListView() {
     return Consumer<PostManager>(
       builder: (ctx, postManager, child) {

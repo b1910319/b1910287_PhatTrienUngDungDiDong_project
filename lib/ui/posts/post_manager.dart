@@ -10,11 +10,12 @@ class PostManager with ChangeNotifier {
   set authToken(AuthToken? authToken) {
     _postsService.authToken = authToken;
   }
+  //hiển thị bài viết
   Future<void> fetchPosts([bool filterByUser = false]) async {
     _items = await _postsService.fetchPosts(filterByUser);
     notifyListeners();
   }
-
+  //thêm bài viết
   Future<void> addPost(Post post) async {
     final newPost = await _postsService.addPost(post);
     if (newPost != null) {
@@ -22,6 +23,7 @@ class PostManager with ChangeNotifier {
       notifyListeners();
     }
   }
+  //đếm số bài viết
   int get itemCount {
     return _items.length;
   }
@@ -29,15 +31,15 @@ class PostManager with ChangeNotifier {
   List<Post> get items {
     return [..._items];
   }
-
+  //lấy bài viết yêu thích
   List<Post> get favoriteItems {
     return _items.where((postItem) => postItem.isFavorite).toList();
   }
-
+  //lấy bài viết theo id
   Post findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
   }
-
+  //cập nhật thông tin bài viết
   Future<void> updatePost(Post post) async {
     final index = _items.indexWhere((item) => item.id == post.id);
     if (index >= 0) {
@@ -47,7 +49,7 @@ class PostManager with ChangeNotifier {
       }
     }
   }
-
+  //xoá bài viết
   Future<void> deletePost(String id) async {
     final index = _items.indexWhere((item) => item.id == id);
     Post? existingPost = _items[index];
@@ -58,7 +60,7 @@ class PostManager with ChangeNotifier {
       notifyListeners();
     }
   }
-
+  //chọn bài viết yêu thích
   Future<void> tonggleFavoriteStatus(Post post) async {
     final savedStatus = post.isFavorite;
     post.isFavorite = !savedStatus;

@@ -10,7 +10,6 @@ enum FilterOptions { favorites, all }
 
 class PostsOverviewScreen extends StatefulWidget {
   const PostsOverviewScreen({super.key});
-
   @override
   State<PostsOverviewScreen> createState() => _PostsOverviewScreenState();
 }
@@ -23,12 +22,11 @@ class _PostsOverviewScreenState extends State<PostsOverviewScreen> {
     super.initState();
     _fetchPost = context.read<PostManager>().fetchPosts();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Review'),
+        title: const Text('Du lịch Chất'),
         actions: <Widget>[
           buildPostFilterMenu(),
         ],

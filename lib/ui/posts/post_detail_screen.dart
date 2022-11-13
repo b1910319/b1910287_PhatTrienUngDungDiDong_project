@@ -2,7 +2,10 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import '../../models/post.dart';
+//hiển thị ngôi sao
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'post_manager.dart';
+import 'package:provider/provider.dart';
 
 class PostDatailScreen extends StatelessWidget {
   static const routeName = '/post-detail';
@@ -31,7 +34,7 @@ class PostDatailScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                        'https://i.pinimg.com/736x/21/2d/12/212d12e421963f8a66f95aece1182069.jpg'),
+                        'https://i.pinimg.com/736x/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'),
                   ),
                   Padding(padding: EdgeInsets.fromLTRB(20, 10, 0, 0)),
                   Column(
@@ -40,33 +43,42 @@ class PostDatailScreen extends StatelessWidget {
                         post.author,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
+                      //hiển thị ngôi sao
                       RatingBarIndicator(
+                        //số ngôi sao màu vàng
                         rating: 4.5,
                         itemBuilder: (context, index) => Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
+                        //tổng số ngôi sao
                         itemCount: 5,
                         itemSize: 17.0,
-                        // direction: Axis.vertical,
                       ),
                     ],
                   ),
                   Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
-                  IconButton(
-                    icon: Icon(post.isFavorite
-                        ? Icons.favorite
-                        : Icons.favorite_border),
-                    onPressed: () {
-                      print('trinh');
-                    },
-                    color: Color(0xFFCF0A0A),
+                  //chọn / bỏ chọn bài viết yêu thích
+                  ValueListenableBuilder<bool>(
+                    valueListenable: post.isFavoriteListenable,
+                    builder: (ctx, isFavorite, child) {
+                      return IconButton(
+                        icon: Icon(isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border),
+                        onPressed: () {
+                          ctx.read<PostManager>().tonggleFavoriteStatus(post);
+                        },
+                        color: Color(0xFFCF0A0A),
+                      );
+                    }
                   ),
                   Padding(padding: EdgeInsets.fromLTRB(20, 0, 20, 0)),
                   Icon(Icons.share),
                 ],
               ),
             ),
+            //gạch dưới
             const Divider(),
             Text(
               post.title,
@@ -87,9 +99,8 @@ class PostDatailScreen extends StatelessWidget {
             Text(
               'ĐÁNH GIÁ BÀI VIẾT NÀY',
               style: TextStyle(
-                fontSize: 18, 
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
-
               ),
             ),
             RatingBarIndicator(
@@ -100,7 +111,6 @@ class PostDatailScreen extends StatelessWidget {
               ),
               itemCount: 5,
               itemSize: 25.0,
-              // direction: Axis.vertical,
             ),
           ],
         ),

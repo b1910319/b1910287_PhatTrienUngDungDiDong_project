@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 class UserPostListTile extends StatelessWidget {
   final Post post;
   const UserPostListTile(this.post, {super.key});
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
